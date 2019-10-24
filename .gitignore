@@ -1,0 +1,10 @@
+dst
+node_modules
+.cache
+venv
+
+native/target
+native/index.node
+native/artifacts.json
+
+.env
