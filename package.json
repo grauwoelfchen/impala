@@ -16,7 +16,7 @@
     "watch:build": "rollup -w -c --configBuildDevelopment",
     "watch:serve": "rollup -w -c --configServe",
     "test": "echo \"error: no test specified\" && exit 1",
-    "start": "make build:production && node dst/server.min.js"
+    "start": "node dst/server.min.js"
   },
   "author": "Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>",
   "license": "MIT",

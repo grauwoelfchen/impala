@@ -1,0 +1,2 @@
+source ${PWD}/tool/venv27/bin/activate
+source ${PWD}/tool/load-gcloud

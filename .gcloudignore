@@ -1,0 +1,11 @@
+.git
+.gitignore
+
+.cache
+dst
+node_modules
+tool
+
+.autoenv*
+.env*
+watch.json

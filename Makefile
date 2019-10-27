@@ -1,20 +1,10 @@
+NAME ?= impala
+IMAGE ?= gcr.io/$(PROJECT_ID)/$(NAME):latest
+
 # -- setup {{{
 setup:  ## Install node dev modules
 	@npm i
 .PHONY: setup
-#  }}}
-
-# -- build {{{
-build\:development:  ## Build in development mode [alias: build]
-	npm run build:development
-.PHONY: build\:development
-
-build\:production:  ## Build in production mode
-	npm run build:production
-.PHONY: build\:production
-
-build: build\:development
-.PHONY: build
 #  }}}
 
 # -- verify {{{
@@ -34,6 +24,39 @@ verify\:all: | verify\:lint\:ts  ## Check code using all verify:xxx targets [ali
 verify: | verify\:all
 .PHONY: verify
 # }}}
+
+# -- build {{{
+build\:development:  ## Build in development mode [alias: build]
+	npm run build:development
+.PHONY: build\:development
+
+build\:production:  ## Build in production mode
+	npm run build:production
+.PHONY: build\:production
+
+build\:cloud:  ## Build an image using Cloud Build
+	gcloud builds submit --config build.yaml .
+.PHONY: build\:cloud
+
+build: build\:development
+.PHONY: build
+#  }}}
+
+# -- deploy {{{
+deploy\:run:
+	@if [ -f "./.env" ]; then \
+	  source ./.env; \
+	  export $$(cut -d= -f1 ./.env | grep -v "^$$" | grep -v "^#"); \
+	fi; \
+	port="8080"; \
+	secret="SLACK_SIGNING_SECRET=$$SLACK_SIGNING_SECRET"; \
+	token="SLACK_BOT_TOKEN=$$SLACK_BOT_TOKEN"; \
+	gcloud beta run deploy $(NAME) \
+    --image $(IMAGE) \
+    --set-env-vars="$$secret,$$token" \
+    --platform managed
+.PHONY: deploy\:run
+#  }}}
 
 # -- other utilities {{{
 watch\:build:  ## Start a process for build [alias: watch]
