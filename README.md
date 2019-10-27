@@ -24,3 +24,8 @@ e.g. on Cloud Run
 % cp .env.sample .env
 % PROJECT_ID="..." make deploy:run
 ```
+
+## Note
+
+In order to create/configure the app, visit:
+https://api.slack.com/apps
