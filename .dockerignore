@@ -2,6 +2,7 @@
 dst
 node_modules
 tool
+img
 
 .autoenv*
 .env*
