@@ -1,6 +1,8 @@
-# Impala
+# Rooibok
 
-![logo](img/logo.jpg?raw=true "Impala")
+_Aepyceros melampus_
+
+![logo](img/logo.jpg?raw=true "Rooibok")
 
 A Slack bot interacts with GitHub Issues.
 
@@ -8,8 +10,12 @@ A Slack bot interacts with GitHub Issues.
 
 TODO
 
-* A slack command shows a modal to GitHub Issues
+* A slack command shows a modal to submit an issue to GitHub
 * An endpoint for incoming webhook from GitHub
+
+##### Screenshots
+
+![logo](img/modal-view-20191029.png?raw=true "A modal view")
 
 
 ## Setup
@@ -52,3 +58,12 @@ TODO
 
 In order to create/configure the app, visit:
 https://api.slack.com/apps
+
+
+## Links
+
+* https://api.slack.com/
+* https://cloud.google.com/run/
+
+* https://github.com/slackapi/bolt
+* https://github.com/slackapi/node-slack-sdk

@@ -1,4 +1,4 @@
-NAME ?= impala
+NAME ?= rooibok
 IMAGE ?= gcr.io/$(PROJECT_ID)/$(NAME):latest
 
 # -- setup {{{
@@ -8,14 +8,21 @@ setup:  ## Install node dev modules
 #  }}}
 
 # -- verify {{{
-verify\:lint:  ## Verify coding style for TypScript [alias: verify:lint, lint]
+verify\:check:  ## Verify errors using tsc [alias: check]
+	@npx tsc --strict --pretty
+.PHONY: verify\:check
+
+check: verify\:check
+.PHONY: check
+
+verify\:lint:  ## Verify coding style for TypScript [alias: lint]
 	@npm run lint
 .PHONY: verify\:lint
 
 lint: verify\:lint
 .PHONY: lint
 
-verify\:all: | verify\:lint  ## Check code using all verify:xxx targets [alias: verify]
+verify\:all: | verify\:check verify\:lint  ## Check code using all verify:xxx targets [alias: verify]
 .PHONY: verify\:all
 
 verify: | verify\:all
@@ -42,16 +49,16 @@ build: build\:development
 # -- deploy {{{
 deploy\:run:
 	@if [ -f "./.env" ]; then \
-	  source ./.env; \
-	  export $$(cut -d= -f1 ./.env | grep -v "^$$" | grep -v "^#"); \
+		source ./.env; \
+		export $$(cut -d= -f1 ./.env | grep -v "^$$" | grep -v "^#"); \
 	fi; \
 	port="8080"; \
 	secret="SLACK_SIGNING_SECRET=$$SLACK_SIGNING_SECRET"; \
 	token="SLACK_BOT_TOKEN=$$SLACK_BOT_TOKEN"; \
 	gcloud beta run deploy $(NAME) \
-    --image $(IMAGE) \
-    --set-env-vars="$$secret,$$token" \
-    --platform managed
+		--image $(IMAGE) \
+		--set-env-vars="$$secret,$$token" \
+		--platform managed
 .PHONY: deploy\:run
 #  }}}
 
@@ -60,7 +67,11 @@ watch\:build:  ## Start a process for build [alias: watch]
 	@npm run watch:build
 .PHONY: watch\:build
 
-watch\:lint:  ## Start a process for tslint
+watch\:check:  ## Start a process for checking by tsc
+	@npx tsc --strict --pretty --watch
+.PHONY: watch\:check
+
+watch\:lint:  ## Start a process for tslint using onchange
 	@npm run watch:lint
 .PHONY: watch\:lint
 
@@ -77,11 +88,11 @@ clean:  ## Tidy up
 
 help:  ## Display this message
 	@grep --extended-regexp '^[0-9a-z\:\\]+: ' $(MAKEFILE_LIST) | \
-	  grep --extended-regexp '  ## ' | \
-	  sed --expression='s/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | \
-	  tr --delete \\\\ | \
-	  awk 'BEGIN {FS = ":  ## "}; \
-	      {printf "\033[38;05;026m%-19s\033[0m %s\n", $$1, $$2}' | \
-	  sort
+		grep --extended-regexp '  ## ' | \
+		sed --expression='s/\(\s|\(\s[0-9a-z\:\\]*\)*\)  /  /' | \
+		tr --delete \\\\ | \
+		awk 'BEGIN {FS = ":  ## "}; \
+			{printf "\033[38;05;026m%-19s\033[0m %s\n", $$1, $$2}' | \
+		sort
 .PHONY: help
 # }}}
