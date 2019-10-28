@@ -6,3 +6,5 @@ tool/venv*
 
 .autoenv
 .env
+.npmrc
+npm-debug.log
