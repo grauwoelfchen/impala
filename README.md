@@ -2,7 +2,7 @@
 
 _Aepyceros melampus_
 
-![logo](img/logo.jpg?raw=true "Rooibok")
+![Logo](img/logo.jpg?raw=true "Rooibok")
 
 A Slack bot interacts with GitHub Issues.
 
@@ -15,7 +15,7 @@ TODO
 
 ##### Screenshots
 
-![logo](img/modal-view-20191029.png?raw=true "A modal view")
+![A modal view](img/modal-view-20191029.png?raw=true "A modal view")
 
 
 ## Setup
@@ -56,7 +56,7 @@ TODO
 
 ## Note
 
-In order to create/configure the app, visit:
+In order to create/configure your app, visit:  
 https://api.slack.com/apps
 
 
