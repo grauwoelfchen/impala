@@ -12,11 +12,10 @@
   "scripts": {
     "build:production": "rollup -c --configBuildProduction",
     "build:development": "rollup -c --configBuildDevelopment",
-    "lint:ts": "tslint -c tslint.json -p tsconfig.json",
-    "watch:build": "rollup -w -c --configBuildDevelopment",
-    "watch:serve": "rollup -w -c --configServe",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "node dst/server.min.js",
     "test": "echo \"error: no test specified\" && exit 1",
-    "start": "node dst/server.min.js"
+    "watch:build": "rollup -w -c --configBuildDevelopment"
   },
   "author": "Yasuhiro Яша Asaka <yasuhiro.asaka@grauwoelfchen.net>",
   "license": "MIT",
