@@ -8,17 +8,14 @@ setup:  ## Install node dev modules
 #  }}}
 
 # -- verify {{{
-verify\:lint\:ts:  ## Verify coding style for TypScript [alias: verify:lint, lint]
-	@npm run lint:ts
-.PHONY: verify\:lint\:ts
-
-verify\:lint: | verify\:lint\:ts
+verify\:lint:  ## Verify coding style for TypScript [alias: verify:lint, lint]
+	@npm run lint
 .PHONY: verify\:lint
 
-lint: verify\:lint\:ts
+lint: verify\:lint
 .PHONY: lint
 
-verify\:all: | verify\:lint\:ts  ## Check code using all verify:xxx targets [alias: verify]
+verify\:all: | verify\:lint  ## Check code using all verify:xxx targets [alias: verify]
 .PHONY: verify\:all
 
 verify: | verify\:all
@@ -63,18 +60,15 @@ watch\:build:  ## Start a process for build [alias: watch]
 	@npm run watch:build
 .PHONY: watch\:build
 
-watch\:lint\:ts:  ## Start a process for tslint
-	@npm run watch:lint:ts
-.PHONY: watch\:lint\:ts
-
-watch\:serve:  ## Start a process for development server [alias: serve]
-	@npm run watch:serve
-.PHONY: watch\:serve
+watch\:lint:  ## Start a process for tslint
+	@npm run watch:lint
+.PHONY: watch\:lint
 
 watch: | watch\:build
 .PHONY: watch
 
-serve: | watch\:serve
+serve: | build\:development  ## Serve a development server on local
+	@node dst/server.js
 .PHONY: serve
 
 clean:  ## Tidy up
